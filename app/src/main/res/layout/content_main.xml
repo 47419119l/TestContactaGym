@@ -12,8 +12,25 @@
     tools:context="com.example.sandra.testcontactagym.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_gravity="center_horizontal|bottom">
+
+    </RelativeLayout>
+
+    <org.osmdroid.views.MapView
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:id="@+id/map"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="155dp"
+        android:layout_gravity="center_horizontal|top" />
+
+
+
+
 </RelativeLayout>

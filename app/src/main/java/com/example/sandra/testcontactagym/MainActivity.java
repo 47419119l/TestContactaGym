@@ -8,12 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
-    Firebase clientRef;
-    Firebase ref;
+    private Firebase infoGymRef;
+    private TextView nom;
+    private TextView horario;
+    private TextView direccio;
+    private TextView email;
+
+    private Firebase ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,28 +36,20 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        /**
+         * Contecem amb firebase.
+         */
         Firebase.setAndroidContext(getBaseContext());
         ref = new Firebase("https://testgimmapp.firebaseio.com/");
-        clientRef = ref.child("InfoGym");
+        infoGymRef = ref.child("InfoGym");
+        /**
+         * Objectes layout.
+         */
+        nom = (TextView)findViewById(R.id.nomCentre);
+        horario = (TextView)findViewById(R.id.horariCentre);
+        direccio = (TextView)findViewById(R.id.direccioCentre);
+        email = (TextView)findViewById(R.id.email);
 
-
-        InfoGym infoGym = new InfoGym();
-        infoGym.setCorreoElectronicoGym("gim@example.com");
-        infoGym.setNombreGym("Gimnasio de ejemplo");
-        infoGym.setTelefonoGym(963852741);
-        infoGym.setDireccionGym("C / Doctor Trueta n3");
-        infoGym.setLatitudGym(41.3851);
-        infoGym.setLongitudGym(2.1734);
-        String []horari = new String[3];
-        horari[0]="08.00 - 23.30";
-        horari[1]="09.00 - 23.00";
-        horari[2]="10.00 - 16.00";
-
-        infoGym.setHorarioGym(horari);
-
-
-        Firebase client = clientRef.push();
-        client.setValue(infoGym);
     }
 
     @Override
