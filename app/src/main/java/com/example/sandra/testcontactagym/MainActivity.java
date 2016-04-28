@@ -8,18 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
+import com.firebase.ui.FirebaseListAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private Firebase infoGymRef;
-    private TextView nom;
-    private TextView horario;
-    private TextView direccio;
-    private TextView email;
-
     private Firebase ref;
+    private ListView listCentre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         /**
          * Contecem amb firebase.
          */
@@ -45,12 +36,38 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Objectes layout.
          */
-        nom = (TextView)findViewById(R.id.nomCentre);
-        horario = (TextView)findViewById(R.id.horariCentre);
-        direccio = (TextView)findViewById(R.id.direccioCentre);
-        email = (TextView)findViewById(R.id.email);
+
+        listCentre = (ListView)findViewById(R.id.listCentre);
+
+
+
+        FirebaseListAdapter adapter = new FirebaseListAdapter<InfoGym>(this, InfoGym.class, R.layout.list_localiza_centro, infoGymRef) {
+            @Override
+            protected void populateView(View v, InfoGym info, int position) {
+                TextView nom = (TextView) v.findViewById(R.id.nomCentre);
+                TextView direccio = (TextView) v.findViewById(R.id.ubicacioCentre);
+                TextView email = (TextView) v.findViewById(R.id.emailCentre);
+                TextView telefon = (TextView) v.findViewById(R.id.telfCentre);
+                TextView semana = (TextView) v.findViewById(R.id.horariCentre);
+                TextView horari2 = (TextView)v.findViewById(R.id.horari2);
+                TextView horari3 = (TextView)v.findViewById(R.id.horari3);
+
+
+                nom.setText(info.getNombreGym());
+                direccio.setText(info.direccionGym);
+                email.setText(info.getCorreoElectronicoGym());
+                telefon.setText(String.valueOf(info.getTelefonoGym()));
+                semana.setText("Lunes- viernes : " + info.getHorarioGym()[0]);
+                horari2.setText("Sabados : " + info.getHorarioGym()[1]);
+                horari3.setText("Domingos y festivos : " + info.getHorarioGym()[2]);
+
+            }
+        };
+        listCentre.setAdapter(adapter);
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

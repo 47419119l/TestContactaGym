@@ -12,25 +12,23 @@
     tools:context="com.example.sandra.testcontactagym.MainActivity"
     tools:showIn="@layout/activity_main">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom">
-
-    </RelativeLayout>
-
     <org.osmdroid.views.MapView
         android:layout_width="fill_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:id="@+id/map"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listCentre"
+        android:layout_below="@+id/map"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="155dp"
-        android:layout_gravity="center_horizontal|top" />
-
-
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>
